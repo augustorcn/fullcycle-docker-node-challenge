@@ -1,13 +1,12 @@
 {
   "name": "node",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sample node API for fullcycle docker challenge",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Augusto Napoleão",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",

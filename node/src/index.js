@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 const config = {
     host: 'db',
     user: 'root',
@@ -9,15 +9,25 @@ const config = {
 };
 
 const mysql = require('mysql');
-const connection = mysql.createConnection(config);
+let connection = mysql.createConnection(config);
 connection.query(`INSERT INTO peoples (name) VALUES ('Augusto'), ('Joãozinho'), ('Mariazinha');`);
+connection.end();
 
 app.get('/', (req, res) => {
+    let output = `<h1>Full Cycle Rocks!</h1>`;
 
-    const title = `<h1>Full Cycle Rocks!</h1>`;
-    res.send(title)
+    connection = mysql.createConnection(config);
+    connection.query(`SELECT * FROM peoples`, (err, results) => {
+        output += `<ul>`;
+        results.map((result) => {
+            output += `<li>${result.name}</li>`;
+        });
+        output += `</ul>`;
+        connection.end();
+        res.send(output);
+    });
 })
 
 app.listen(port, () => {
-    console.log(`API runing on port ${port}`)
-})
+    console.log(`API runing at port ${port}`);
+});

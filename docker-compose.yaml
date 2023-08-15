@@ -2,20 +2,20 @@ version: '3'
 
 services:
   nginx:
+    container_name: nginx
     build:
       context: nginx
-    container_name: nginx
-    networks:
-      - nodenetwork
     ports:
       - "8080:80"
+    networks:
+      - nodenetwork
     depends_on:
       - app
   db:
+    container_name: db
     build:
       context: mysql
     command: --innodb-use-native-aio=0
-    container_name: db
     restart: always
     tty: true
     volumes:
@@ -26,15 +26,15 @@ services:
     networks:
       - nodenetwork
   app:
+    container_name: app
     build:
       context: node
-    networks:
-      - nodenetwork
     entrypoint: wait-for db:3306 -t 40 -- node src/index.js
     tty: true
-    container_name: app
     ports:
       - "3000:3000"
+    networks:
+      - nodenetwork
     depends_on:
       - db
 networks:
