@@ -40,6 +40,9 @@ services:
       context: node
     command: bash -c "npm i -y && node src/index.js"
     tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./node:/usr/src/app
     networks:
       - nodenetwork
     depends_on:
