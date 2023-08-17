@@ -1,4 +1,4 @@
-use nodedb;
+USE nodedb;
 
 DROP TABLE IF EXISTS peoples;
 
